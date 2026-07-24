@@ -19,3 +19,33 @@
 // URI naming best practices | HTTP cookies in detail | Uses of HTTP cookies | 
 // Response best practices | Request best practices | Controller best practices | 
 // Middleware best practices
+
+localStorage.setItem("them", "dark");
+
+// console.log(localStorage.getItem("them","light"));
+localStorage.removeItem("them");
+
+const countries = ["Bangladesh", "Australia", "France", "Norway"];
+
+const user = {
+    id: 1,
+    name: "Abir",
+    age: 25
+};
+
+const myName = "Abir";
+
+sessionStorage.setItem("Countries", countries);
+
+sessionStorage.setItem("user", JSON.stringify(user));
+sessionStorage.setItem("myName", myName);
+
+console.log(sessionStorage.getItem("countries"));
+
+console.log(JSON.parse(sessionStorage.getItem("user")));
+
+
+
+document.cookie = "name = Abir; max-age=20";
+document.cookie = "user = Rawvy; path=/about";
+
