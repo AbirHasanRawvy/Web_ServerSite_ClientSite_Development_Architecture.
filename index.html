@@ -6,7 +6,76 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Lets learn Web Storeges.</h1>
-    <script src="./class2.js"></script>
+    <h1>Simple login Example.</h1>
+    <input id="username" placeholder="Enter user name .....">
+    <!-- <script src="./class2.js"></script> -->
+    <button onclick="login()">Login</button>
+    <button onclick="logout()">Logout</button>
+    <h2 id="notification"></h2>
+    <!-- <script src="./class22.js"></script> -->
+    <script>
+        //for cookie
+        function setCookie(name, value, days) {
+            const d = new Date();
+            d.setTime(d.getTime() + (days*24*60*60*1000));
+            const expires = "expires"+d.toUTCString();
+            document.cookie = name + "=" + value + ";" + ";path=/";
+        }
+
+        function getCookie(name){
+            const cname = name + "=";
+            const decoded = decodeURI(document.cookie);
+            const parts = decoded.split(";");
+            for (let p of parts) {
+                p = p.trim();
+                if (p.indexOf(cname) === 0) {
+                    return p.substring(cname.length);
+                }
+            }
+            return "";
+        }
+
+        function deleteCookie(name) {
+            document.cookie = name + "=; expires=Thu, 20 Jan 2001 1999 00:00:00 UTC; path=/;";
+        }
+
+        //For login;
+        function login() {
+            const username = document.getElementById("username").value;
+            if(!username) {
+                return alert("Enter a user name");
+            }
+            setCookie("session_token", "abcdxyz", 1);
+
+            localStorage.setItem("username", username);
+
+            sessionStorage.setItem("logInTime", new Date().toLocaleTimeString());
+
+            showPage();
+        }
+
+        //For logout;
+        function logout() {
+            deleteCookie("session_token");
+            localStorage.removeItem("username");
+            sessionStorage.removeItem("logInTime");
+            document.getElementById("notification").innerText = "Log Out";
+        }
+
+        //For Showing data;
+        function showPage(){
+            const username = localStorage.getItem("username");
+            const logInTime = sessionStorage.getItem("logInTime");
+            const sessionToken = getCookie("session_token");
+
+            if (sessionToken && username){
+                document.getElementById("notification").innerText = `Welcome back ${username}`;
+            } else {
+                document.getElementById("notification").innerText = "Not Logged in, please login first!";
+            }
+
+        }
+
+    </script>
 </body>
 </html>
